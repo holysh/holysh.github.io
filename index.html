@@ -1,0 +1,54 @@
+---
+permalink: /404.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+    <title>Neat Test</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="vex.css" />
+    <link rel="stylesheet" href="vex-theme-default.css" />
+</head>
+<body>
+
+<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="base.js"></script>
+<script src="chat.js"></script>
+<script src="user.js"></script>
+<script src="vex.js"></script>
+<script src="message.js"></script>
+<script>vex.defaultOptions.className = 'vex-theme-default';</script>
+
+
+
+<div id="full-container">
+    <div class="spinner center"></div>
+    <div id="button" onclick="togglePoop()" class="">PRESS ME</div>
+</div>
+
+
+<div id="content-container">
+    <div id="menu">
+        <div id="login-button" class="button-array">Login</div>
+        <div id="new-chat-button" class="button-array">New Chat</div>
+    </div>
+    <div id="content">
+        <div class="title">
+            <input id="input-text" type="text" placeholder="Write whatever you want! ">
+            <input type="submit" value=">" id="send-text" onclick="sendMessage();">
+        </div>
+        <div id="history">
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
