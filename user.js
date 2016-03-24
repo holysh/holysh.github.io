@@ -89,31 +89,7 @@ function createUser(authData){
     });
 }
 
-function createChat(){
-    //todo
-    vex.dialog.open({
-        message: 'Enter the chat name:',
-        input: "<input name=\"name\" type=\"text\" placeholder=\"Name\" required autocomplete=\"off\"/>\n<label><input name=\"public\" type=\"checkbox\" />Public Chat</label>",
-        buttons: [
-            $.extend({}, vex.dialog.buttons.YES, {
-                text: 'Create chat'
-            }), $.extend({}, vex.dialog.buttons.NO, {
-                text: 'Cancel'
-            })
-        ],
-        callback: function(data) {
-            if (data === false) {
-                return console.log('Cancelled');
-            }
-            else {
-                var isPublic = (data.public != undefined) ? true : false;
-                createChatData(data.name,isPublic);
-            }
 
-        }
-
-    });
-}
 
 
 
