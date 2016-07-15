@@ -1,4 +1,13 @@
-<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -14,35 +23,98 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="my-icons.html">
 
-</head><body><dom-module id="my-app">
+<dom-module id="my-app">
 
     <template>
 
-        <style>:host{display:block;--app-primary-color:#4285f4;--app-secondary-color:black;}app-header{color:#fff;height:100%;--app-header-background-front-layer:{background-image:url("https://source.unsplash.com/random");};--app-header-background-rear-layer:{background-color:var(--app-secondary-color);};}#page-container{}app-header > app-toolbar{height:50px;}app-header paper-icon-button{--paper-icon-button-ink-color:white;}app-drawer{--app-drawer-content-container:{background:var(--app-secondary-color);};--app-drawer-scrim-background:rgba(0, 0, 0, 0.5);}.drawer-list{margin:0 20px;}.drawer-list a{display:block;padding:0 16px;line-height:40px;text-decoration:none;color:#FFFFFF;}.drawer-list a.iron-selected{color:#cccccc;font-weight:bold;}.drawer-list a.subroute{padding-left:32px;}</style>
+        <style>
+
+            :host {
+                display: block;
+                --app-primary-color: #4285f4;
+                --app-secondary-color: black;
+            }
+
+            app-header {
+                color: #fff;
+                --app-header-background-front-layer: {
+                    background-image: url("https://source.unsplash.com/random");
+                };
+                --app-header-background-rear-layer: {
+                    background-color: var(--app-secondary-color);
+                };
+            }
+
+            #page-container{
+
+            }
+
+            app-header > app-toolbar {
+                height: 50px;
+            }
+
+            app-header paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+
+            app-drawer {
+                --app-drawer-content-container: {
+                    background: var(--app-secondary-color);;
+                };
+                --app-drawer-scrim-background: rgba(0, 0, 0, 0.5);
+            }
+
+            .drawer-list {
+                margin: 0 20px;
+            }
+
+            .drawer-list a {
+                display: block;
+                padding: 0 16px;
+                line-height: 40px;
+                text-decoration: none;
+                color: #FFFFFF;
+            }
+
+            .drawer-list a.iron-selected {
+                color: #cccccc;
+                font-weight: bold;
+            }
+
+            .drawer-list a.subroute {
+                padding-left: 32px;
+            }
+
+
+        </style>
 
         <app-location route="{{route}}"></app-location>
-        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+        <app-route
+                route="{{route}}"
+                pattern="/:page"
+                data="{{routeData}}"
+                tail="{{subroute}}"></app-route>
 
-        <app-drawer-layout force-narrow="">
+        <app-drawer-layout force-narrow>
 
-            
-            <app-drawer swipe-open="">
+            <!-- Drawer content -->
+            <app-drawer swipe-open>
                 <app-toolbar></app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                    <a drawer-toggle="" name="view1" href="/view1">View One</a>
-                    <a drawer-toggle="" name="view2" href="/view2">View Two</a>
-                    <a drawer-toggle="" name="view3" href="/view3">View Three</a>
-                    <a drawer-toggle="" name="view4" href="/view4">View For</a>
+                    <a drawer-toggle name="view1" href="/view1">View One</a>
+                    <a drawer-toggle name="view2" href="/view2">View Two</a>
+                    <a drawer-toggle name="view3" href="/view3">View Three</a>
+                    <a drawer-toggle name="view4" href="/view4">View For</a>
                 </iron-selector>
 
             </app-drawer>
 
-            
+            <!-- Main content -->
             <app-header-layout>
 
-                <app-header condenses="" reveals="" effects="parallax-background blend-background">
+                <app-header condenses reveals effects="parallax-background blend-background">
                     <app-toolbar>
-                        <paper-icon-button icon="menu" drawer-toggle=""></paper-icon-button>
+                        <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                     </app-toolbar>
                 </app-header>
 
@@ -60,7 +132,51 @@
 
     </template>
 
-    <script>Polymer({is:"my-app",properties:{page:{type:String,reflectToAttribute:!0,observer:"_pageChanged"}},observers:["_routePageChanged(routeData.page)"],_routePageChanged:function(e){this.page=e||"view1"},_pageChanged:function(e){this.importHref(this.resolveUrl("my-"+e+".html"),null,null,!0);var t=this.shadowRoot.querySelector("#page-container"),r=Math.max(document.documentElement.clientHeight,window.innerHeight||0)-50;t.style.minHeight=r+"px";var o=this.shadowRoot.querySelector("app-header");o.scroll(0,o.offsetHeight-50)}});</script>
+    <script>
+
+        Polymer({
+
+            is: 'my-app',
+
+            properties: {
+
+                page: {
+                    type: String,
+                    reflectToAttribute: true,
+                    observer: '_pageChanged'
+                },
+
+            },
+
+            observers: [
+                '_routePageChanged(routeData.page)'
+            ],
+
+            _routePageChanged: function (page) {
+                this.page = page || 'view1';
+            },
+
+            _pageChanged: function (page) {
+                // load page import on demand.
+                this.importHref(this.resolveUrl('my-' + page + '.html'), null, null, true);
+
+                //set container height
+                var pageContainer = this.shadowRoot.querySelector('#page-container');
+                var header = this.shadowRoot.querySelector('app-header');
+
+
+                var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+                pageContainer.style.minHeight = height-50+"px";
+                header.style.height = height+"px";
+
+                //scroll below head.
+
+                header.scroll(0,header.offsetHeight-50);
+            }
+
+        });
+
+    </script>
 
 </dom-module>
-</body></html>
