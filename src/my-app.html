@@ -1,0 +1,66 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="my-icons.html">
+
+</head><body><dom-module id="my-app">
+
+    <template>
+
+        <style>:host{display:block;--app-primary-color:#4285f4;--app-secondary-color:black;}app-header{color:#fff;height:100%;--app-header-background-front-layer:{background-image:url("https://source.unsplash.com/random");};--app-header-background-rear-layer:{background-color:var(--app-secondary-color);};}#page-container{min-height:calc(100vh - 50px);}app-header > app-toolbar{height:50px;}app-header paper-icon-button{--paper-icon-button-ink-color:white;}app-drawer{--app-drawer-content-container:{background:var(--app-secondary-color);};--app-drawer-scrim-background:rgba(0, 0, 0, 0.5);}.drawer-list{margin:0 20px;}.drawer-list a{display:block;padding:0 16px;line-height:40px;text-decoration:none;color:#FFFFFF;}.drawer-list a.iron-selected{color:#cccccc;font-weight:bold;}.drawer-list a.subroute{padding-left:32px;}</style>
+
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+
+        <app-drawer-layout force-narrow="">
+
+            
+            <app-drawer swipe-open="">
+                <app-toolbar></app-toolbar>
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                    <a drawer-toggle="" name="view1" href="/view1">View One</a>
+                    <a drawer-toggle="" name="view2" href="/view2">View Two</a>
+                    <a drawer-toggle="" name="view3" href="/view3">View Three</a>
+                    <a drawer-toggle="" name="view4" href="/view4">View For</a>
+                </iron-selector>
+
+            </app-drawer>
+
+            
+            <app-header-layout>
+
+                <app-header condenses="" reveals="" effects="parallax-background blend-background">
+                    <app-toolbar>
+                        <paper-icon-button icon="menu" drawer-toggle=""></paper-icon-button>
+                    </app-toolbar>
+                </app-header>
+
+                <iron-pages id="page-container" role="main" selected="[[page]]" attr-for-selected="name">
+                    <my-view1 name="view1"></my-view1>
+                    <my-view2 name="view2"></my-view2>
+                    <my-view3 name="view3"></my-view3>
+                    <my-view4 name="view4"></my-view4>
+
+                </iron-pages>
+
+            </app-header-layout>
+
+        </app-drawer-layout>
+
+    </template>
+
+    <script>Polymer({is:"my-app",properties:{page:{type:String,reflectToAttribute:!0,observer:"_pageChanged"}},observers:["_routePageChanged(routeData.page)"],_routePageChanged:function(e){this.page=e||"view1"},_pageChanged:function(e){this.importHref(this.resolveUrl("my-"+e+".html"),null,null,!0);var t=this.shadowRoot.querySelector("app-header");t.scroll(0,t.offsetHeight-50)}});</script>
+
+</dom-module>
+</body></html>
